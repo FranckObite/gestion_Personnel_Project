@@ -1,0 +1,283 @@
+import 'package:flutter/material.dart';
+//import 'package:carousel_pro/carousel_pro.dart';
+
+import 'Page2Connexion.dart';
+
+class MonAccueil extends StatefulWidget {
+  const MonAccueil({super.key});
+
+  @override
+  State<MonAccueil> createState() => _MonAccueilState();
+}
+
+class _MonAccueilState extends State<MonAccueil> {
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          width: size.width,
+          height: size.height,
+          child: Column(
+            children: [
+              maRow(),
+              const Divider(
+                color: Color.fromARGB(255, 66, 209, 64),
+                thickness: 2,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, right: 10.0, bottom: 20.0),
+                    child: Container(
+                        width: 300,
+                        height: 500,
+                        child: Column(
+                          children: [
+                            maDeuxiemeRow(
+                                leTextDescriptif: 'Gestion Agents',
+                                leTextDescriptif1: 'Gestion Tâches',
+                                liconeDelaPage: Icons.manage_accounts_sharp,
+                                liconeDelaPage1: Icons.work),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            ourContainer(
+                                text2Description: "Gestion de Présence",
+                                icon2Description: Icons.calendar_month),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            maDeuxiemeRow(
+                                leTextDescriptif: ' Paiement',
+                                leTextDescriptif1: ' Bilan',
+                                liconeDelaPage: Icons.payments,
+                                liconeDelaPage1: Icons.data_exploration),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            ourContainer(
+                                text2Description: "Gestion des Utilisateur",
+                                icon2Description: Icons.manage_accounts),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            ourContainer(
+                                text2Description: " Paramètres",
+                                icon2Description: Icons.settings)
+                          ],
+                        )),
+                  ),
+                  /* const SizedBox(
+                    width: 10.0,
+                  ), */
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 28.0),
+                    child: Container(
+                      width: 2,
+                      height: 550,
+                      color: const Color.fromARGB(255, 66, 209, 64),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 1.0,
+                  ),
+                  Container(
+                    width: 980,
+                    height: 575,
+                    //child: monImageCarousel,
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /* ...............................ICI VOUS SE TROUVE TOUTE MES FONCTIONS........................ */
+
+  Image notreLogo({required double hauteurLogo, required double largeurLogo}) {
+    return Image.asset(
+      "images/NAN-removebg-preview.png",
+      width: largeurLogo,
+      height: hauteurLogo,
+    );
+  }
+
+  Text monText(
+      {required double taille,
+      required Color couleurText,
+      required FontWeight monTextGras,
+      required String leText}) {
+    return Text(
+      leText,
+      style: TextStyle(
+          fontSize: taille, color: couleurText, fontWeight: monTextGras),
+    );
+  }
+
+  /* Widget monImageCarousel = Container(
+    height: 575.0,
+    child: new Carousel(
+      boxFit: BoxFit.cover,
+      images: [
+        AssetImage("images/NAN.png"),
+        AssetImage("images/9.jpg"),
+        AssetImage("images/images/rotary-plow-g6dedf12d8_1920.jpg"),
+        AssetImage("images/10.jpeg")
+      ],
+      autoplay: true,
+      //animationCurve: Curves.fastOutSlowIn,
+      //animationDuration: Duration(milliseconds: 1000),
+      dotSize: 4.0,
+      dotColor: Color.fromARGB(255, 66, 209, 64),
+      indicatorBgPadding: 2.0,
+      dotBgColor: Colors.white,
+    ),
+  ); */
+
+  Icon monIcone(
+      {required double taileIcone,
+      required Color couleurIcone,
+      required IconData iconEnQuestion}) {
+    return Icon(
+      iconEnQuestion,
+      size: taileIcone,
+      color: couleurIcone,
+    );
+  }
+
+  maRow() {
+    return Row(
+      children: [
+        notreLogo(hauteurLogo: 100, largeurLogo: 100),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 30.0),
+          child: Column(
+            children: [
+              monIcone(
+                  taileIcone: 40,
+                  couleurIcone: Color.fromARGB(255, 66, 209, 64),
+                  iconEnQuestion: Icons.account_circle_sharp),
+              const SizedBox(
+                height: 5.0,
+              ),
+              monText(
+                  taille: 10,
+                  couleurText: Colors.orange,
+                  monTextGras: FontWeight.bold,
+                  leText: "Connecter en tant que: ....."),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ConnexionPage()));
+            },
+            child: monText(
+                taille: 15,
+                couleurText: Colors.orange,
+                monTextGras: FontWeight.bold,
+                leText: "Déconnextion"),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: monIcone(
+              taileIcone: 40,
+              couleurIcone: Color.fromARGB(255, 66, 209, 64),
+              iconEnQuestion: Icons.logout),
+        ),
+      ],
+    );
+  }
+
+  Row maDeuxiemeRow(
+      {required String leTextDescriptif,
+      required String leTextDescriptif1,
+      required IconData liconeDelaPage,
+      required IconData liconeDelaPage1}) {
+    return Row(
+      children: [
+        Column(
+          children: [
+            InkWell(
+              onTap: () {},
+              child: monIcone(
+                  taileIcone: 100,
+                  couleurIcone: const Color.fromARGB(255, 66, 209, 64),
+                  iconEnQuestion: liconeDelaPage),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            monText(
+                taille: 20,
+                couleurText: Colors.orange,
+                monTextGras: FontWeight.normal,
+                leText: leTextDescriptif)
+          ],
+        ),
+        const Spacer(),
+        Column(
+          children: [
+            InkWell(
+              onTap: () {},
+              child: monIcone(
+                  taileIcone: 100,
+                  couleurIcone: const Color.fromARGB(255, 66, 209, 64),
+                  iconEnQuestion: liconeDelaPage1),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            monText(
+                taille: 20,
+                couleurText: Colors.orange,
+                monTextGras: FontWeight.normal,
+                leText: leTextDescriptif1)
+          ],
+        ),
+      ],
+    );
+  }
+
+  Container ourContainer(
+      {required String text2Description, required IconData icon2Description}) {
+    return Container(
+      width: 300,
+      height: 50,
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: const Color.fromARGB(255, 66, 209, 64),
+          ),
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(30))),
+      child: ListTile(
+        title: InkWell(
+          onTap: () {},
+          child: monText(
+              taille: 20,
+              couleurText: Colors.orange,
+              monTextGras: FontWeight.normal,
+              leText: text2Description),
+        ),
+        trailing: monIcone(
+            taileIcone: 40,
+            couleurIcone: const Color.fromARGB(255, 66, 209, 64),
+            iconEnQuestion: icon2Description),
+      ),
+    );
+  }
+}
