@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:carousel_pro/carousel_pro.dart';
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter_application_/GestionDesAgents/gestionDesAgentsPage.dart';
 
 import 'Page2Connexion.dart';
 
@@ -11,6 +12,7 @@ class MonAccueil extends StatefulWidget {
 }
 
 class _MonAccueilState extends State<MonAccueil> {
+  var couleur = Color.fromARGB(255, 12, 95, 15);
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -19,79 +21,96 @@ class _MonAccueilState extends State<MonAccueil> {
         body: Container(
           width: size.width,
           height: size.height,
-          child: Column(
-            children: [
-              maRow(),
-              const Divider(
-                color: Color.fromARGB(255, 66, 209, 64),
-                thickness: 2,
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10.0, right: 10.0, bottom: 20.0),
-                    child: Container(
-                        width: 300,
-                        height: 500,
-                        child: Column(
-                          children: [
-                            maDeuxiemeRow(
-                                leTextDescriptif: 'Gestion Agents',
-                                leTextDescriptif1: 'Gestion Tâches',
-                                liconeDelaPage: Icons.manage_accounts_sharp,
-                                liconeDelaPage1: Icons.work),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ourContainer(
-                                text2Description: "Gestion de Présence",
-                                icon2Description: Icons.calendar_month),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            maDeuxiemeRow(
-                                leTextDescriptif: ' Paiement',
-                                leTextDescriptif1: ' Bilan',
-                                liconeDelaPage: Icons.payments,
-                                liconeDelaPage1: Icons.data_exploration),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            ourContainer(
-                                text2Description: "Gestion des Utilisateur",
-                                icon2Description: Icons.manage_accounts),
-                            const SizedBox(
-                              height: 15.0,
-                            ),
-                            ourContainer(
-                                text2Description: " Paramètres",
-                                icon2Description: Icons.settings)
-                          ],
-                        )),
-                  ),
-                  /* const SizedBox(
-                    width: 10.0,
-                  ), */
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 28.0),
-                    child: Container(
-                      width: 2,
-                      height: 550,
-                      color: const Color.fromARGB(255, 66, 209, 64),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                maRow(),
+                Stack(
+                  children: [
+                    Divider(
+                      color: couleur,
+                      thickness: 1,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 1.0,
-                  ),
-                  Container(
-                    width: 980,
-                    height: 575,
-                    //child: monImageCarousel,
-                  ),
-                ],
-              )
-            ],
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10.0, right: 10.0, bottom: 30.0),
+                          child: Container(
+                              width: 300,
+                              height: 500,
+
+                              //color: Color.fromARGB(255, 110, 107, 97),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  maDeuxiemeRow(
+                                      leTextDescriptif: 'Gestion Agents',
+                                      leTextDescriptif1: 'Gestion Tâches',
+                                      liconeDelaPage:
+                                          Icons.manage_accounts_sharp,
+                                      liconeDelaPage1: Icons.work),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  ourContainer(
+                                      text2Description: "Gestion de Présence",
+                                      icon2Description: Icons.calendar_month),
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  maDeuxiemeRow(
+                                      leTextDescriptif: ' Paiement',
+                                      leTextDescriptif1: ' Bilan',
+                                      liconeDelaPage: Icons.payments,
+                                      liconeDelaPage1: Icons.data_exploration),
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  ourContainer(
+                                      text2Description:
+                                          "Gestion des Utilisateur",
+                                      icon2Description: Icons.manage_accounts),
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  ourContainer(
+                                      text2Description: " Paramètres",
+                                      icon2Description: Icons.settings)
+                                ],
+                              )),
+                        ),
+                        /* const SizedBox(
+                      width: 10.0,
+                    ), */
+                        /* Padding(
+                      padding: const EdgeInsets.only(bottom: 28.0),
+                      child: Container(
+                        width: 2,
+                        height: 50,
+                        color: const Color.fromARGB(255, 66, 209, 64),
+                      ),
+                    ), */
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 7.1),
+                            child: Container(
+                              width: 980,
+                              height: 575,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                color: couleur,
+                              )),
+                              child: monImageCarousel,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -100,11 +119,18 @@ class _MonAccueilState extends State<MonAccueil> {
 
   /* ...............................ICI VOUS SE TROUVE TOUTE MES FONCTIONS........................ */
 
-  Image notreLogo({required double hauteurLogo, required double largeurLogo}) {
-    return Image.asset(
-      "images/NAN-removebg-preview.png",
-      width: largeurLogo,
-      height: hauteurLogo,
+  TextButton notreLogo(
+      {required double hauteurLogo, required double largeurLogo}) {
+    return TextButton(
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => GestionAgentsPage()));
+      },
+      child: Image.asset(
+        "images/NAN-removebg-preview.png",
+        width: largeurLogo,
+        height: hauteurLogo,
+      ),
     );
   }
 
@@ -120,15 +146,18 @@ class _MonAccueilState extends State<MonAccueil> {
     );
   }
 
-  /* Widget monImageCarousel = Container(
+  Widget monImageCarousel = Container(
     height: 575.0,
     child: new Carousel(
       boxFit: BoxFit.cover,
       images: [
         AssetImage("images/NAN.png"),
         AssetImage("images/9.jpg"),
-        AssetImage("images/images/rotary-plow-g6dedf12d8_1920.jpg"),
-        AssetImage("images/10.jpeg")
+        AssetImage("images/imageProjet2.jpeg"),
+        AssetImage("images/10.jpeg"),
+        AssetImage("images/imageProjet4.jpeg"),
+        AssetImage("images/imagesProjet.png"),
+        AssetImage("images/rotary-plow-g6dedf12d8_1920.jpg"),
       ],
       autoplay: true,
       //animationCurve: Curves.fastOutSlowIn,
@@ -138,7 +167,7 @@ class _MonAccueilState extends State<MonAccueil> {
       indicatorBgPadding: 2.0,
       dotBgColor: Colors.white,
     ),
-  ); */
+  );
 
   Icon monIcone(
       {required double taileIcone,
@@ -162,7 +191,7 @@ class _MonAccueilState extends State<MonAccueil> {
             children: [
               monIcone(
                   taileIcone: 40,
-                  couleurIcone: Color.fromARGB(255, 66, 209, 64),
+                  couleurIcone: couleur,
                   iconEnQuestion: Icons.account_circle_sharp),
               const SizedBox(
                 height: 5.0,
@@ -196,7 +225,7 @@ class _MonAccueilState extends State<MonAccueil> {
           padding: const EdgeInsets.only(bottom: 20.0),
           child: monIcone(
               taileIcone: 40,
-              couleurIcone: Color.fromARGB(255, 66, 209, 64),
+              couleurIcone: couleur,
               iconEnQuestion: Icons.logout),
         ),
       ],
@@ -216,7 +245,7 @@ class _MonAccueilState extends State<MonAccueil> {
               onTap: () {},
               child: monIcone(
                   taileIcone: 100,
-                  couleurIcone: const Color.fromARGB(255, 66, 209, 64),
+                  couleurIcone: couleur,
                   iconEnQuestion: liconeDelaPage),
             ),
             const SizedBox(
@@ -236,7 +265,7 @@ class _MonAccueilState extends State<MonAccueil> {
               onTap: () {},
               child: monIcone(
                   taileIcone: 100,
-                  couleurIcone: const Color.fromARGB(255, 66, 209, 64),
+                  couleurIcone: couleur,
                   iconEnQuestion: liconeDelaPage1),
             ),
             const SizedBox(
@@ -260,7 +289,7 @@ class _MonAccueilState extends State<MonAccueil> {
       height: 50,
       decoration: BoxDecoration(
           border: Border.all(
-            color: const Color.fromARGB(255, 66, 209, 64),
+            color: couleur,
           ),
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(30))),
@@ -275,7 +304,7 @@ class _MonAccueilState extends State<MonAccueil> {
         ),
         trailing: monIcone(
             taileIcone: 40,
-            couleurIcone: const Color.fromARGB(255, 66, 209, 64),
+            couleurIcone: couleur,
             iconEnQuestion: icon2Description),
       ),
     );

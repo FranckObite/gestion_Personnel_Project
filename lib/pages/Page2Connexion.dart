@@ -48,35 +48,35 @@ class _ConnexionPageState extends State<ConnexionPage> {
         child: Container(
           width: size.width,
           height: size.height,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Stack(alignment: Alignment.topCenter, children: [
-                    notreLogo(hauteurLogo: 300, largeurLogo: 300),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 220.0),
-                      child: Column(
-                        children: [
-                          monIcone(
-                              taileIcone: 40,
-                              couleurIcone: Color.fromARGB(255, 5, 119, 3),
-                              iconEnQuestion: Icons.account_circle_sharp),
-                          monText(
-                              taille: 20,
-                              couleurText: Colors.black,
-                              monTextGras: FontWeight.w500,
-                              leText: "IDENTICFICATION"),
-                        ],
-                      ),
-                    )
-                  ]),
-                  monContainer(
-                    maHauteur: 200,
-                    maLageur: 500,
-                    maCouleur: Colors.white,
-                    lenfant: Column(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Stack(alignment: Alignment.topCenter, children: [
+                  notreLogo(hauteurLogo: 300, largeurLogo: 300),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 220.0),
+                    child: Column(
+                      children: [
+                        monIcone(
+                            taileIcone: 40,
+                            couleurIcone: Color.fromARGB(255, 5, 119, 3),
+                            iconEnQuestion: Icons.account_circle_sharp),
+                        monText(
+                            taille: 20,
+                            couleurText: Colors.black,
+                            monTextGras: FontWeight.w500,
+                            leText: "IDENTICFICATION"),
+                      ],
+                    ),
+                  )
+                ]),
+                monContainer(
+                  maHauteur: 200,
+                  maLageur: 500,
+                  maCouleur: Colors.white,
+                  lenfant: SingleChildScrollView(
+                    child: Column(
                       children: [
                         monTextFieldText(
                             text2Fieldd: "Nom d'utilisateur",
@@ -106,7 +106,9 @@ class _ConnexionPageState extends State<ConnexionPage> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 200.0, top: 10),
+                          padding: const EdgeInsets.only(
+                            left: 200.0,
+                          ),
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
@@ -130,8 +132,8 @@ class _ConnexionPageState extends State<ConnexionPage> {
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
