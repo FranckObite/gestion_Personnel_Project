@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
+import 'ajouterUnAgent.dart';
+
 class GestionAgentsPage extends StatefulWidget {
   const GestionAgentsPage({super.key});
 
@@ -59,43 +61,10 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          DottedBorder(
-                            borderType: BorderType.RRect,
-
-                            radius: Radius.circular(50),
-                            //dashPattern: [8, 4],
-                            strokeWidth: 1,
-                            child: Container(
-                              width: 120,
-                              height: 170,
-                              /* decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(
-                              color: Colors.black,
-                              strokeAlign: 1,
-                            ),
-                          ), */
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {},
-                                      child: monIcone(
-                                          taileIcone: 90,
-                                          couleurIcone: couleur,
-                                          iconEnQuestion: Icons.group_add),
-                                    ),
-                                    monText(
-                                        taille: 20,
-                                        couleurText: Colors.orange,
-                                        monTextGras: FontWeight.normal,
-                                        leText: "Nouvelle \n Agent"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
+                          monDotteBoder(
+                              leTexBoder: "Nouvelle \n Agent",
+                              liconneDotteBorder: Icons.group_add,
+                              creationdeQuestionnaire: MonDialogAkouter())
                         ],
                       ),
                     ),
@@ -118,6 +87,54 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                 )
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  DottedBorder monDotteBoder(
+      {required String leTexBoder,
+      required IconData liconneDotteBorder,
+      required final Widget creationdeQuestionnaire}) {
+    return DottedBorder(
+      borderType: BorderType.RRect,
+
+      radius: Radius.circular(50),
+      //dashPattern: [8, 4],
+      strokeWidth: 1,
+      child: Container(
+        width: 120,
+        height: 170,
+        /* decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            border: Border.all(
+                              color: Colors.black,
+                              strokeAlign: 1,
+                            ),
+                          ), */
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => creationdeQuestionnaire));
+                },
+                child: monIcone(
+                    taileIcone: 90,
+                    couleurIcone: couleur,
+                    iconEnQuestion: liconneDotteBorder),
+              ),
+              monText(
+                  taille: 20,
+                  couleurText: Colors.orange,
+                  monTextGras: FontWeight.normal,
+                  leText: leTexBoder),
+            ],
           ),
         ),
       ),

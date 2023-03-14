@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_application_/GestionDesAgents/gestionDesAgentsPage.dart';
+import 'package:flutter_application_/maBasedeDonnee/dataBase.dart';
 
 import 'Page2Connexion.dart';
 
@@ -49,7 +50,11 @@ class _MonAccueilState extends State<MonAccueil> {
                                       leTextDescriptif1: 'Gestion Tâches',
                                       liconeDelaPage:
                                           Icons.manage_accounts_sharp,
-                                      liconeDelaPage1: Icons.work),
+                                      liconeDelaPage1: Icons.work,
+                                      laFonction2Navigation:
+                                          GestionAgentsPage(),
+                                      laFonction2Navigation1:
+                                          GestionAgentsPage()),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -63,7 +68,11 @@ class _MonAccueilState extends State<MonAccueil> {
                                       leTextDescriptif: ' Paiement',
                                       leTextDescriptif1: ' Bilan',
                                       liconeDelaPage: Icons.payments,
-                                      liconeDelaPage1: Icons.data_exploration),
+                                      liconeDelaPage1: Icons.data_exploration,
+                                      laFonction2Navigation:
+                                          GestionAgentsPage(),
+                                      laFonction2Navigation1:
+                                          GestionAgentsPage()),
                                   const SizedBox(
                                     height: 15.0,
                                   ),
@@ -123,8 +132,8 @@ class _MonAccueilState extends State<MonAccueil> {
       {required double hauteurLogo, required double largeurLogo}) {
     return TextButton(
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => GestionAgentsPage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MyApp()));
       },
       child: Image.asset(
         "images/NAN-removebg-preview.png",
@@ -232,17 +241,25 @@ class _MonAccueilState extends State<MonAccueil> {
     );
   }
 
-  Row maDeuxiemeRow(
-      {required String leTextDescriptif,
-      required String leTextDescriptif1,
-      required IconData liconeDelaPage,
-      required IconData liconeDelaPage1}) {
+  Row maDeuxiemeRow({
+    required String leTextDescriptif,
+    required String leTextDescriptif1,
+    required IconData liconeDelaPage,
+    required IconData liconeDelaPage1,
+    required final Widget laFonction2Navigation1,
+    required final Widget laFonction2Navigation,
+  }) {
     return Row(
       children: [
         Column(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => laFonction2Navigation));
+              },
               child: monIcone(
                   taileIcone: 100,
                   couleurIcone: couleur,
@@ -262,7 +279,13 @@ class _MonAccueilState extends State<MonAccueil> {
         Column(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => laFonction2Navigation1));
+                ;
+              },
               child: monIcone(
                   taileIcone: 100,
                   couleurIcone: couleur,
