@@ -31,6 +31,7 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
           width: 980,
@@ -42,11 +43,14 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                monText(
-                    taille: 40,
-                    couleurText: Colors.orange,
-                    monTextGras: FontWeight.bold,
-                    leText: "GESTION DES AGENTS"),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: monText(
+                      taille: 40,
+                      couleurText: Colors.orange,
+                      monTextGras: FontWeight.bold,
+                      leText: "GESTION DES AGENTS"),
+                ),
                 const SizedBox(
                   height: 10,
                 ),

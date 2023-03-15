@@ -18,6 +18,7 @@ class _MonAccueilState extends State<MonAccueil> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
           width: size.width,
@@ -172,9 +173,9 @@ class _MonAccueilState extends State<MonAccueil> {
       //animationCurve: Curves.fastOutSlowIn,
       //animationDuration: Duration(milliseconds: 1000),
       dotSize: 4.0,
-      dotColor: Color.fromARGB(255, 66, 209, 64),
+      dotColor: Colors.orange,
       indicatorBgPadding: 2.0,
-      dotBgColor: Colors.white,
+      //dotBgColor: Colors.transparent,
     ),
   );
 

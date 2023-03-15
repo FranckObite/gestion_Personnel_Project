@@ -49,6 +49,7 @@ class TodoList {
 }
 
 class _MyHomePageState extends State<HomePage> {
+  
   final TodoList list = new TodoList();
   final LocalStorage storage = new LocalStorage('todo_app.json');
   bool initialized = false;
