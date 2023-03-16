@@ -37,7 +37,7 @@ class _MonAccueilState extends State<MonAccueil> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 10.0, right: 10.0, bottom: 30.0),
+                              left: 10.0, right: 10.0, bottom: 500.0),
                           child: Container(
                               width: 300,
                               height: 500,
@@ -106,12 +106,13 @@ class _MonAccueilState extends State<MonAccueil> {
                             padding: const EdgeInsets.only(top: 7.1),
                             child: Container(
                               width: 980,
-                              height: 575,
+                              height: MediaQuery.of(context).size.height,
                               decoration: BoxDecoration(
                                   border: Border.all(
                                 color: couleur,
                               )),
-                              child: monImageCarousel,
+                              child: monImageCarousel(
+                                  size: MediaQuery.of(context).size.height),
                             ),
                           ),
                         ),
@@ -156,28 +157,30 @@ class _MonAccueilState extends State<MonAccueil> {
     );
   }
 
-  Widget monImageCarousel = Container(
-    height: 575.0,
-    child: new Carousel(
-      boxFit: BoxFit.cover,
-      images: [
-        AssetImage("images/NAN.png"),
-        AssetImage("images/9.jpg"),
-        AssetImage("images/imageProjet2.jpeg"),
-        AssetImage("images/10.jpeg"),
-        AssetImage("images/imageProjet4.jpeg"),
-        AssetImage("images/imagesProjet.png"),
-        AssetImage("images/rotary-plow-g6dedf12d8_1920.jpg"),
-      ],
-      autoplay: true,
-      //animationCurve: Curves.fastOutSlowIn,
-      //animationDuration: Duration(milliseconds: 1000),
-      dotSize: 4.0,
-      dotColor: Colors.orange,
-      indicatorBgPadding: 2.0,
-      //dotBgColor: Colors.transparent,
-    ),
-  );
+  Container monImageCarousel({required double size}) {
+    return Container(
+      height: size,
+      child: Carousel(
+        boxFit: BoxFit.cover,
+        images: [
+          AssetImage("images/NAN.png"),
+          AssetImage("images/9.jpg"),
+          AssetImage("images/imageProjet2.jpeg"),
+          AssetImage("images/10.jpeg"),
+          AssetImage("images/imageProjet4.jpeg"),
+          AssetImage("images/imagesProjet.png"),
+          AssetImage("images/rotary-plow-g6dedf12d8_1920.jpg"),
+        ],
+        autoplay: true,
+        //animationCurve: Curves.fastOutSlowIn,
+        //animationDuration: Duration(milliseconds: 1000),
+        dotSize: 4.0,
+        dotColor: Colors.orange,
+        indicatorBgPadding: 2.0,
+        //dotBgColor: Colors.transparent,
+      ),
+    );
+  }
 
   Icon monIcone(
       {required double taileIcone,

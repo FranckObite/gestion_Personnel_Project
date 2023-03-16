@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 
@@ -92,47 +94,215 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
           child: Row(
             children: [
               Container(
-                width: 250,
+                width: 500,
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Column(
-                    children: [
-                      maDeuxiemeRow(
-                          leTextDescriptif: "Ajout nouvelle Agent",
-                          liconeDelaPage: Icons.assignment_add,
-                          laFonction2Navigation: MonDialogAkouter()),
-                      Spacer(),
-                      pageAcceuil(hauteurLogo: 300, largeurLogo: 300),
-                      Spacer(),
-                      letextsonbon(laction: "Annuler")
-                    ],
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 120.0),
+                          child: maDeuxiemeRow(
+                              leTextDescriptif: "Ajout nouvelle Agent",
+                              liconeDelaPage: Icons.assignment_add,
+                              laFonction2Navigation: MonDialogAkouter()),
+                        ),
+                        Spacer(),
+                        pageAcceuil(hauteurLogo: 300, largeurLogo: 300),
+                        Spacer(),
+                        letextsonbon(laction: "Annuler")
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Container(
-                  width: (300),
-                  height: MediaQuery.of(context).size.height,
+              Expanded(
+                  child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(200.0),
                   child: Column(
                     children: [
-                      maDeuxiemeRow3(
-                        leTextDescriptif: "Identité de l'Agent",
-                        liconeDelaPage: Icons.card_travel,
+                      Row(
+                        children: [
+                          maDeuxiemeRow3(
+                            leTextDescriptif: "Identité de l'Agent",
+                            liconeDelaPage: Icons.card_travel,
+                          ),
+                          Spacer(),
+                          maDeuxiemeRow3(
+                            leTextDescriptif: "Contact de l'Agent",
+                            liconeDelaPage: Icons.card_travel,
+                          ),
+                        ],
                       ),
                       Spacer(),
-                      racourcisTexfiel(
-                          hintText: " Matricule",
-                          mesControleurs: controlleur2a),
+                      Row(
+                        children: [
+                          racourcisTexfiel(
+                              hintText: " Matricule",
+                              mesControleurs: controlleur2a),
+                          Spacer(),
+                          racourcisTexfiel(
+                              hintText: " Adress",
+                              mesControleurs: controlleur2f),
+                        ],
+                      ),
                       Spacer(),
-                      racourcisTexfiel(
-                          hintText: " Nom", mesControleurs: controlleur2b),
+                      Row(
+                        children: [
+                          racourcisTexfiel(
+                              hintText: " Nom", mesControleurs: controlleur2b),
+                          Spacer(),
+                          racourcisTexfiel(
+                              hintText: " Email",
+                              mesControleurs: controlleur2g),
+                        ],
+                      ),
                       Spacer(),
-                      racourcisTexfiel(
-                          hintText: " Prenoms", mesControleurs: controlleur2c),
+                      Row(
+                        children: [
+                          racourcisTexfiel(
+                              hintText: " Prenoms",
+                              mesControleurs: controlleur2c),
+                          Spacer(),
+                          racourcisTexfiel(
+                              hintText: " Téléphone",
+                              mesControleurs: controlleur2h),
+                        ],
+                      ),
                       Spacer(),
+                      Row(
+                        children: [
+                          racourcisTexfiel(
+                              hintText: " Lieu de Naissance",
+                              mesControleurs: controlleur2d),
+                          Spacer(),
+                          racourcisTexfiel2(mesControleurs: controlleur2e),
+                        ],
+                      ),
+                      Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              monText(
+                                  taille: 20,
+                                  couleurText: Colors.black,
+                                  monTextGras: FontWeight.bold,
+                                  leText: "Tâches :"),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              radios(),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 430,
+                          ),
+                          Stack(children: [
+                            Column(
+                              children: [
+                                monText(
+                                    taille: 20,
+                                    couleurText: Colors.black,
+                                    monTextGras: FontWeight.bold,
+                                    leText: "Sexe :"),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                radios1(),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 300.0),
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: monIcone(
+                                      taileIcone: 80,
+                                      couleurIcone: Colors.black,
+                                      iconEnQuestion: Icons.add_a_photo)),
+                            )
+                          ]),
+                        ],
+                      ),
+                      Spacer(),
+                      superRow(
+                          letextdelicon: "Etat-Civil",
+                          leDialogEnquestion: "Marier",
+                          leDialogEnquestion1: 'Divorcé',
+                          leDialogEnquestion2: 'Célibataire',
+                          leDialogEnquestion3: 'Veuf/Veuve'),
+                      Spacer(),
+                      superRow(
+                          letextdelicon: "Civilité",
+                          leDialogEnquestion: "Monsieur",
+                          leDialogEnquestion1: 'Autres',
+                          leDialogEnquestion2: 'Madame',
+                          leDialogEnquestion3: 'Mademoiselle'),
+                      Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [letextsonbon(laction: "Enregistrer")],
+                      )
+                    ],
+                  ),
+                ),
+              ))
+
+              /*    Padding(
+                padding: const EdgeInsets.all(200.0),
+                child: Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          maDeuxiemeRow3(
+                            leTextDescriptif: "Identité de l'Agent",
+                            liconeDelaPage: Icons.card_travel,
+                          ),
+                          Spacer(),
+                          maDeuxiemeRow3(
+                            leTextDescriptif: "Contact de l'Agent",
+                            liconeDelaPage: Icons.card_travel,
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          racourcisTexfiel(
+                              hintText: " Matricule",
+                              mesControleurs: controlleur2a),
+                          Spacer(),
+                          racourcisTexfiel(
+                              hintText: " Adress",
+                              mesControleurs: controlleur2f),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          racourcisTexfiel(
+                              hintText: " Nom", mesControleurs: controlleur2b),
+                          racourcisTexfiel(
+                              hintText: " Email",
+                              mesControleurs: controlleur2g),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          racourcisTexfiel(
+                              hintText: " Prenoms",
+                              mesControleurs: controlleur2c),
+                          racourcisTexfiel(
+                              hintText: " Téléphone",
+                              mesControleurs: controlleur2h),
+                        ],
+                      ),
+                      
+                      /* Spacer(),
                       racourcisTexfiel(
                           hintText: " Lieu de Naissance",
                           mesControleurs: controlleur2d),
@@ -146,9 +316,12 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                               couleurText: Colors.black,
                               monTextGras: FontWeight.bold,
                               leText: "Tâches :"),
+                          SizedBox(
+                            height: 20,
+                          ),
                           radios(),
                         ],
-                      )
+                      ) */
 
                       /* 
                       maDeuxiemeRow3(
@@ -157,75 +330,85 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                     ],
                   ),
                 ),
-              ),
-              Expanded(
+              ), */
+              /*  Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.only(top: 200.0, right: 400.0),
                   child: Container(
                     width: (300),
                     height: MediaQuery.of(context).size.height,
                     child: Column(
                       children: [
-                        maDeuxiemeRow3(
-                          leTextDescriptif: "Contact de l'Agent",
-                          liconeDelaPage: Icons.card_travel,
+                        SizedBox(
+                          height: 65,
                         ),
-                        Spacer(),
-                        racourcisTexfiel(
-                            hintText: " Adress", mesControleurs: controlleur2f),
-                        Spacer(),
-                        racourcisTexfiel(
-                            hintText: " Email", mesControleurs: controlleur2g),
-                        Spacer(),
-                        racourcisTexfiel(
-                            hintText: " Téléphone",
-                            mesControleurs: controlleur2h),
-                        Spacer(),
-                        Row(
-                          children: [
-                            monText(
-                                taille: 20,
-                                couleurText: Colors.black,
-                                monTextGras: FontWeight.bold,
-                                leText: "Sexe :"),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            radios1(),
-                          ],
+                        
+                        SizedBox(
+                          height: 65,
                         ),
-                        Spacer(),
-                        Stack(
-                          children: [
-                            Column(
-                              children: [
-                                superRow(
-                                    letextdelicon: "Etat-Civil",
-                                    leDialogEnquestion: "Marier",
-                                    leDialogEnquestion1: 'Divorcé',
-                                    leDialogEnquestion2: 'Célibataire',
-                                    leDialogEnquestion3: 'Veuf/Veuve'),
-                                //Spacer(),
-                                superRow(
-                                    letextdelicon: "Civilité",
-                                    leDialogEnquestion: "Monsieur",
-                                    leDialogEnquestion1: 'Autres',
-                                    leDialogEnquestion2: 'Madame',
-                                    leDialogEnquestion3: 'Mademoiselle'),
-                              ],
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 200.0, top: 0.0),
-                              child: IconButton(
-                                  onPressed: () {},
-                                  icon: monIcone(
-                                      taileIcone: 80,
-                                      couleurIcone: Colors.black,
-                                      iconEnQuestion: Icons.add_a_photo)),
-                            ),
-                          ],
-                        ),Spacer(),
+                        
+                        SizedBox(height: 75),
+                        
+                        SizedBox(
+                          height: 65,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0),
+                          child: Row(
+                            children: [
+                              monText(
+                                  taille: 20,
+                                  couleurText: Colors.black,
+                                  monTextGras: FontWeight.bold,
+                                  leText: "Sexe :"),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              radios1(),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0),
+                          child: Stack(
+                            children: [
+                              Column(
+                                children: [
+                                  superRow(
+                                      letextdelicon: "Etat-Civil",
+                                      leDialogEnquestion: "Marier",
+                                      leDialogEnquestion1: 'Divorcé',
+                                      leDialogEnquestion2: 'Célibataire',
+                                      leDialogEnquestion3: 'Veuf/Veuve'),
+                                  //Spacer(),
+                                  superRow(
+                                      letextdelicon: "Civilité",
+                                      leDialogEnquestion: "Monsieur",
+                                      leDialogEnquestion1: 'Autres',
+                                      leDialogEnquestion2: 'Madame',
+                                      leDialogEnquestion3: 'Mademoiselle'),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 200.0, top: 0.0),
+                                child: IconButton(
+                                    onPressed: () {},
+                                    icon: monIcone(
+                                        taileIcone: 80,
+                                        couleurIcone: Colors.black,
+                                        iconEnQuestion: Icons.add_a_photo)
+                                        ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 100,
+                        ),
                         letextsonbon(laction: "Enregistrer")
 
                         /* 
@@ -236,7 +419,7 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                     ),
                   ),
                 ),
-              )
+              ) */
             ],
           ),
         ),
@@ -396,7 +579,7 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
 
   Container racourcisTexfiel2({required TextEditingController mesControleurs}) {
     return Container(
-      width: 250,
+      width: 400,
       height: 40,
       decoration: BoxDecoration(color: Colors.white),
       child: TextField(
@@ -417,7 +600,7 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
       {required String hintText,
       required TextEditingController mesControleurs}) {
     return Container(
-      width: 250,
+      width: 400,
       height: 40,
       decoration: BoxDecoration(color: Colors.white),
       child: TextField(

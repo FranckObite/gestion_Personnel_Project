@@ -34,12 +34,13 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          width: 980,
-          height: 575,
-          decoration: BoxDecoration(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          /*  decoration: BoxDecoration(
               border: Border.all(
             color: couleur,
-          )),
+          )
+          ), */
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -61,7 +62,7 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                 Stack(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.only(top: 50.0, left: 100),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -73,19 +74,21 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 680.0, top: 70.0),
-                      child: Container(
-                        width: 200,
-                        height: 50,
-                        child: TextField(
-                          obscureText: false,
-                          controller: controlleur1,
-                          decoration: InputDecoration(
-                            hintText: "rechercher",
-                            prefixIcon: Icon(Icons.search),
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        Container(
+                          width: 200,
+                          height: 50,
+                          child: TextField(
+                            obscureText: false,
+                            controller: controlleur1,
+                            decoration: InputDecoration(
+                              hintText: "rechercher",
+                              prefixIcon: Icon(Icons.search),
+                            ),
                           ),
                         ),
-                      ),
+                      ]),
                     )
                   ],
                 )

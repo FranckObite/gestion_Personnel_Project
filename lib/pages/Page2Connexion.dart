@@ -51,92 +51,93 @@ class _ConnexionPageState extends State<ConnexionPage> {
             width: size.width,
             height: size.height,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Stack(alignment: Alignment.topCenter, children: [
-                    notreLogo(hauteurLogo: 300, largeurLogo: 300),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 220.0),
-                      child: Column(
-                        children: [
-                          monIcone(
-                              taileIcone: 40,
-                              couleurIcone: Color.fromARGB(255, 5, 119, 3),
-                              iconEnQuestion: Icons.account_circle_sharp),
-                          monText(
-                              taille: 20,
-                              couleurText: Colors.black,
-                              monTextGras: FontWeight.w500,
-                              leText: "IDENTICFICATION"),
-                        ],
-                      ),
-                    )
-                  ]),
-                  monContainer(
-                    maHauteur: 200,
-                    maLageur: 500,
-                    maCouleur: Colors.white,
-                    lenfant: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          monTextFieldText(
-                              text2Fieldd: "Nom d'utilisateur",
-                              obscuree: false,
-                              radiusNombree: 25.0,
-                              leControleur: controlleur1),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          monTextFieldMotPass(
-                            text2Field: "Mot de Pass",
-                            obscuree: obscur,
-                            iconTexfiel: icoo,
-                            radiusNombre: 25.0,
-                            leControleur1: controlleur2,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                  onPressed: () {},
-                                  child: monText(
-                                      taille: 10,
-                                      couleurText:
-                                          Color.fromARGB(255, 5, 119, 3),
-                                      monTextGras: FontWeight.normal,
-                                      leText: "Mot de Pass oublie?")),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 200.0,
+              padding: const EdgeInsets.only(top: 200.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(alignment: Alignment.topCenter, children: [
+                      notreLogo(hauteurLogo: 300, largeurLogo: 300),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 220.0),
+                        child: Column(
+                          children: [
+                            monIcone(
+                                taileIcone: 40,
+                                couleurIcone: Color.fromARGB(255, 5, 119, 3),
+                                iconEnQuestion: Icons.account_circle_sharp),
+                            monText(
+                                taille: 20,
+                                couleurText: Colors.black,
+                                monTextGras: FontWeight.w500,
+                                leText: "IDENTICFICATION"),
+                          ],
+                        ),
+                      )
+                    ]),
+                    monContainer(
+                      maHauteur: 200,
+                      maLageur: 500,
+                      lenfant: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            monTextFieldText(
+                                text2Fieldd: "Nom d'utilisateur",
+                                obscuree: false,
+                                radiusNombree: 25.0,
+                                leControleur: controlleur1),
+                            const SizedBox(
+                              height: 20,
                             ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MonAccueil()));
-                                /* Navigator.pop(context); */
-                              },
-                              child: monText(
-                                  taille: 10,
-                                  couleurText: Colors.white,
-                                  monTextGras: FontWeight.bold,
-                                  leText: "Se Connecter"),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.orange,
-                                elevation: 10,
+                            monTextFieldMotPass(
+                              text2Field: "Mot de Pass",
+                              obscuree: obscur,
+                              iconTexfiel: icoo,
+                              radiusNombre: 25.0,
+                              leControleur1: controlleur2,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextButton(
+                                    onPressed: () {},
+                                    child: monText(
+                                        taille: 10,
+                                        couleurText:
+                                            Color.fromARGB(255, 5, 119, 3),
+                                        monTextGras: FontWeight.normal,
+                                        leText: "Mot de Pass oublie?")),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 200.0,
                               ),
-                            ),
-                          )
-                        ],
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MonAccueil()));
+                                  /* Navigator.pop(context); */
+                                },
+                                child: monText(
+                                    taille: 10,
+                                    couleurText: Colors.white,
+                                    monTextGras: FontWeight.bold,
+                                    leText: "Se Connecter"),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                  elevation: 10,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -148,12 +149,10 @@ class _ConnexionPageState extends State<ConnexionPage> {
   Container monContainer(
       {required double maHauteur,
       required double maLageur,
-      required Color maCouleur,
       required Widget lenfant}) {
     return Container(
       width: maLageur,
       height: maHauteur,
-      decoration: BoxDecoration(color: maCouleur),
       child: lenfant,
     );
   }
