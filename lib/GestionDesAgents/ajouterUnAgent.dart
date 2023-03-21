@@ -221,7 +221,7 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                           Spacer(),
                           racourcisTexfiel(
                               hintText: " Téléphone",
-                              mesControleurs: controlleur2h),
+                              mesControleurs: controlleur2i),
                         ],
                       ),
                       Spacer(),
@@ -447,6 +447,7 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
       height: 40,
       decoration: BoxDecoration(color: Colors.white),
       child: TextField(
+        
         autocorrect: true,
         controller: mesControleurs,
         decoration: InputDecoration(

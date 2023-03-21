@@ -3,6 +3,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_application_/GestionDesAgents/gestionDesAgentsPage.dart';
 import 'package:flutter_application_/maBasedeDonnee/dataBase.dart';
 
+import '../GestionDesTaches/gestionDesTaches.dart';
 import 'Page2Connexion.dart';
 
 class MonAccueil extends StatefulWidget {
@@ -55,7 +56,7 @@ class _MonAccueilState extends State<MonAccueil> {
                                       laFonction2Navigation:
                                           GestionAgentsPage(),
                                       laFonction2Navigation1:
-                                          GestionAgentsPage()),
+                                          GestionDesTaches()),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -79,7 +80,7 @@ class _MonAccueilState extends State<MonAccueil> {
                                   ),
                                   ourContainer(
                                       text2Description:
-                                          "Gestion des Utilisateur",
+                                          "Gestion Utilisateur",
                                       icon2Description: Icons.manage_accounts),
                                   const SizedBox(
                                     height: 15.0,

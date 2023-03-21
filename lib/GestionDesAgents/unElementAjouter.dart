@@ -5,6 +5,8 @@ class UnElementAjouter extends StatelessWidget {
   final String LeNom;
   final String lePrenom;
   final String laTache;
+  final String lePhone;
+  final String laDress;
 
   final bool etatDeLaTach;
   Function(bool?)? onChanged;
@@ -14,25 +16,23 @@ class UnElementAjouter extends StatelessWidget {
       {super.key,
       required this.leMtricul,
       required this.LeNom,
+      required this.lePhone,
+      required this.laDress,
       required this.onChanged,
       required this.deleteFunction,
       required this.lePrenom,
       required this.etatDeLaTach,
       required this.laTache});
 
-  var laCouleur2Licone = Colors.red;
+  var laCouleur2Licone = Colors.green;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 400,
-      height: 300,
-      /* decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, strokeAlign: 1)), */
-      child: Card(
-        elevation: 2,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Row(
@@ -40,7 +40,7 @@ class UnElementAjouter extends StatelessWidget {
                   monIcone(
                       taileIcone: 40,
                       couleurIcone: (laCouleur2Licone == laCouleur2Licone)
-                          ? Colors.green
+                          ? Colors.red
                           : laCouleur2Licone,
                       iconEnQuestion: Icons.no_accounts),
                   Spacer(),
@@ -72,7 +72,11 @@ class UnElementAjouter extends StatelessWidget {
               SizedBox(height: 20),
               lePappding(leMots: "Prenoms", CorrespondantAuMots: "$lePrenom"),
               SizedBox(height: 20),
-              lePappding(leMots: "Tâche", CorrespondantAuMots: "$laTache")
+              lePappding(leMots: "Email", CorrespondantAuMots: "$laTache"),
+              SizedBox(height: 20),
+              lePappding(leMots: "Téléphone", CorrespondantAuMots: "$lePhone"),
+              SizedBox(height: 20),
+              lePappding(leMots: "Adress", CorrespondantAuMots: "$laDress"),
             ],
           ),
         ),

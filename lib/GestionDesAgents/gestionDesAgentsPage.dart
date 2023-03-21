@@ -72,66 +72,67 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
             color: couleur,
           )
           ), */
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: monText(
-                    taille: 40,
-                    couleurText: Colors.orange,
-                    monTextGras: FontWeight.bold,
-                    leText: "GESTION DES AGENTS"),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Divider(
-                color: couleur,
-                thickness: 2,
-              ),
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0, left: 100),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        monDotteBoder(
-                            leTexBoder: "Nouvelle \n Agent",
-                            liconneDotteBorder: Icons.group_add,
-                            creationdeQuestionnaire: MonDialogAkouter())
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: monText(
+                      taille: 40,
+                      couleurText: Colors.orange,
+                      monTextGras: FontWeight.bold,
+                      leText: "GESTION DES AGENTS"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  color: couleur,
+                  thickness: 2,
+                ),
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50.0, left: 100),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            width: 200,
-                            height: 50,
-                            child: TextField(
-                              obscureText: false,
-                              controller: controlleur1,
-                              decoration: InputDecoration(
-                                hintText: "rechercher",
-                                prefixIcon: Icon(Icons.search),
+                          monDotteBoder(
+                              leTexBoder: "Nouvelle \n Agent",
+                              liconneDotteBorder: Icons.group_add,
+                              creationdeQuestionnaire: MonDialogAkouter())
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 50,
+                              child: TextField(
+                                obscureText: false,
+                                controller: controlleur1,
+                                decoration: InputDecoration(
+                                  hintText: "rechercher",
+                                  prefixIcon: Icon(Icons.search),
+                                ),
                               ),
                             ),
-                          ),
-                        ]),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    color: Colors.black,
-                    child: SingleChildScrollView(
+                          ]),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 2,
                       child: GridView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
@@ -143,29 +144,31 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                                   mainAxisSpacing: 10.0),
                           itemBuilder: (BuildContext context, index) {
                             return UnElementAjouter(
-                                leMtricul: db.MesAgentsList[index][0],
-                                LeNom: db.MesAgentsList[index][1],
-                                onChanged: (value) =>
-                                    changerLaCouleurdeLiconedeTache(
-                                        value, index),
-                                deleteFunction: (context) =>
-                                    suprimerUnAgents(index),
-                                lePrenom: db.MesAgentsList[index][2],
-                                etatDeLaTach: false,
-                                laTache: db.MesAgentsList[index][5]);
+                              leMtricul: db.MesAgentsList[index][0],
+                              LeNom: db.MesAgentsList[index][1],
+                              onChanged: (value) =>
+                                  changerLaCouleurdeLiconedeTache(value, index),
+                              deleteFunction: (context) =>
+                                  suprimerUnAgents(index),
+                              lePrenom: db.MesAgentsList[index][2],
+                              etatDeLaTach: false,
+                              laTache: db.MesAgentsList[index][5],
+                              laDress: db.MesAgentsList[index][4],
+                              lePhone: db.MesAgentsList[index][7],
+                            );
                           }),
-                    ),
-                  ))
+                    ))
 
-              /* GridView.builder(
-                  itemCount: 3,
-                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    child:
-                    UnElementAjouter;
-                  }) */
-            ],
+                /* GridView.builder(
+                    itemCount: 3,
+                    gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2),
+                    itemBuilder: (BuildContext context, int index) {
+                      child:
+                      UnElementAjouter;
+                    }) */
+              ],
+            ),
           ),
         ),
       ),
