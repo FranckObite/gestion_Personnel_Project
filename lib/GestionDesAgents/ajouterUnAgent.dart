@@ -1,8 +1,10 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:localstorage/localstorage.dart';
 
+import '../maBasedeDonnee/db.dart';
 import '../pages/pageAccueil.dart';
 
 class MonDialogAkouter extends StatefulWidget {
@@ -26,8 +28,17 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
 
   IconData icoo = Icons.visibility_off;
 
+  final _myBox = Hive.box('myBox');
+  MaBdAgents db = MaBdAgents();
+
   @override
   void initState() {
+    if (_myBox.get("LISTEDESAGENTS") == null) {
+      db.CreationDeLaListInitiale();
+    } else {
+      //cela exit deja
+      db.loadData();
+    }
     // TODO: implement initState
     super.initState();
     /* initialiser le controller */
@@ -46,6 +57,47 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
     //initialiser la base
     //tous ce que l'on va faire pendant l'initialisation du widget
   }
+
+  /* void changerLaCouleurdeLiconedeTache(bool? value, int index) {
+    setState(() {
+      db.MesAgentsList[index][13] = !db.MesAgentsList[index][13];
+    });
+    db.updateDataBase();
+  } */
+
+  void enregistrerNouvelleAgents() {
+    setState(() {
+      db.MesAgentsList.add([
+        controlleur2a.text,
+        controlleur2b.text,
+        controlleur2c.text,
+        controlleur2d.text,
+        controlleur2f.text,
+        controlleur2g.text,
+        controlleur2h.text,
+        controlleur2i.text,
+        false
+      ]);
+
+      controlleur2a.clear();
+      controlleur2b.clear();
+      controlleur2c.clear();
+      controlleur2d.clear();
+      controlleur2f.clear();
+      controlleur2g.clear();
+      controlleur2h.clear();
+      controlleur2i.clear();
+    });
+    Navigator.of(context).pop();
+    db.updateDataBase();
+  }
+
+  /* void suprimerUnAgents(int index) {
+    setState(() {
+      db.MesAgentsList.removeAt(index);
+    });
+    db.updateDataBase();
+  } */
 
   @override
   void dispose() {
@@ -112,7 +164,7 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                         Spacer(),
                         pageAcceuil(hauteurLogo: 300, largeurLogo: 300),
                         Spacer(),
-                        letextsonbon(laction: "Annuler")
+                        letextsonbon1(laction: "Annuler")
                       ],
                     ),
                   ),
@@ -251,175 +303,6 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                   ),
                 ),
               ))
-
-              /*    Padding(
-                padding: const EdgeInsets.all(200.0),
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          maDeuxiemeRow3(
-                            leTextDescriptif: "Identité de l'Agent",
-                            liconeDelaPage: Icons.card_travel,
-                          ),
-                          Spacer(),
-                          maDeuxiemeRow3(
-                            leTextDescriptif: "Contact de l'Agent",
-                            liconeDelaPage: Icons.card_travel,
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      Row(
-                        children: [
-                          racourcisTexfiel(
-                              hintText: " Matricule",
-                              mesControleurs: controlleur2a),
-                          Spacer(),
-                          racourcisTexfiel(
-                              hintText: " Adress",
-                              mesControleurs: controlleur2f),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          racourcisTexfiel(
-                              hintText: " Nom", mesControleurs: controlleur2b),
-                          racourcisTexfiel(
-                              hintText: " Email",
-                              mesControleurs: controlleur2g),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          racourcisTexfiel(
-                              hintText: " Prenoms",
-                              mesControleurs: controlleur2c),
-                          racourcisTexfiel(
-                              hintText: " Téléphone",
-                              mesControleurs: controlleur2h),
-                        ],
-                      ),
-                      
-                      /* Spacer(),
-                      racourcisTexfiel(
-                          hintText: " Lieu de Naissance",
-                          mesControleurs: controlleur2d),
-                      Spacer(),
-                      racourcisTexfiel2(mesControleurs: controlleur2e),
-                      Spacer(),
-                      Column(
-                        children: [
-                          monText(
-                              taille: 20,
-                              couleurText: Colors.black,
-                              monTextGras: FontWeight.bold,
-                              leText: "Tâches :"),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          radios(),
-                        ],
-                      ) */
-
-                      /* 
-                      maDeuxiemeRow3(
-                          leTextDescriptif: "Contact de l'Agent",
-                          liconeDelaPage: Icons.phone) */
-                    ],
-                  ),
-                ),
-              ), */
-              /*  Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 200.0, right: 400.0),
-                  child: Container(
-                    width: (300),
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 65,
-                        ),
-                        
-                        SizedBox(
-                          height: 65,
-                        ),
-                        
-                        SizedBox(height: 75),
-                        
-                        SizedBox(
-                          height: 65,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30.0),
-                          child: Row(
-                            children: [
-                              monText(
-                                  taille: 20,
-                                  couleurText: Colors.black,
-                                  monTextGras: FontWeight.bold,
-                                  leText: "Sexe :"),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              radios1(),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30.0),
-                          child: Stack(
-                            children: [
-                              Column(
-                                children: [
-                                  superRow(
-                                      letextdelicon: "Etat-Civil",
-                                      leDialogEnquestion: "Marier",
-                                      leDialogEnquestion1: 'Divorcé',
-                                      leDialogEnquestion2: 'Célibataire',
-                                      leDialogEnquestion3: 'Veuf/Veuve'),
-                                  //Spacer(),
-                                  superRow(
-                                      letextdelicon: "Civilité",
-                                      leDialogEnquestion: "Monsieur",
-                                      leDialogEnquestion1: 'Autres',
-                                      leDialogEnquestion2: 'Madame',
-                                      leDialogEnquestion3: 'Mademoiselle'),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 200.0, top: 0.0),
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: monIcone(
-                                        taileIcone: 80,
-                                        couleurIcone: Colors.black,
-                                        iconEnQuestion: Icons.add_a_photo)
-                                        ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 100,
-                        ),
-                        letextsonbon(laction: "Enregistrer")
-
-                        /* 
-                        maDeuxiemeRow3(
-                            leTextDescriptif: "Contact de l'Agent",
-                            liconeDelaPage: Icons.phone) */
-                      ],
-                    ),
-                  ),
-                ),
-              ) */
             ],
           ),
         ),
@@ -427,11 +310,27 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
     );
   }
 
-  TextButton letextsonbon({required String laction}) {
+  TextButton letextsonbon1({required String laction}) {
     return TextButton(
         onPressed: () {
           Navigator.pop(context);
         },
+        child: Container(
+          height: 40,
+          width: 150,
+          decoration: BoxDecoration(color: Colors.orange),
+          child: Center(
+              child: monText(
+                  taille: 20,
+                  couleurText: Colors.white,
+                  monTextGras: FontWeight.bold,
+                  leText: "$laction")),
+        ));
+  }
+
+  TextButton letextsonbon({required String laction}) {
+    return TextButton(
+        onPressed: enregistrerNouvelleAgents,
         child: Container(
           height: 40,
           width: 150,
@@ -502,41 +401,6 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                       ),
                     ));
                   });
-
-              /* 
-                      ListView(
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: monText(
-                                taille: 10,
-                                couleurText: Colors.black,
-                                monTextGras: FontWeight.normal,
-                                leText: leDialogEnquestion),
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: monText(
-                                  taille: 10,
-                                  couleurText: Colors.black,
-                                  monTextGras: FontWeight.normal,
-                                  leText: leDialogEnquestion2)),
-                          TextButton(
-                              onPressed: () {},
-                              child: monText(
-                                  taille: 10,
-                                  couleurText: Colors.black,
-                                  monTextGras: FontWeight.normal,
-                                  leText: leDialogEnquestion3)),
-                          TextButton(
-                              onPressed: () {},
-                              child: monText(
-                                  taille: 10,
-                                  couleurText: Colors.black,
-                                  monTextGras: FontWeight.normal,
-                                  leText: leDialogEnquestion1)),
-                        ],
-                      ), */
             },
             icon: monIcone(
                 taileIcone: 40,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter_application_/GestionDesAgents/unElementAjouter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../maBasedeDonnee/db.dart';
 import 'ajouterUnAgent.dart';
 
 class GestionAgentsPage extends StatefulWidget {
@@ -11,14 +14,42 @@ class GestionAgentsPage extends StatefulWidget {
 }
 
 class _GestionAgentsPageState extends State<GestionAgentsPage> {
+  void changerLaCouleurdeLiconedeTache(bool? value, int index) {
+    setState(() {
+      db.MesAgentsList[index][13] = !db.MesAgentsList[index][13];
+    });
+    db.updateDataBase();
+  }
+
+  final _myBox = Hive.box('myBox');
+  MaBdAgents db = MaBdAgents();
   late TextEditingController controlleur1;
+
+  void suprimerUnAgents(int index) {
+    setState(() {
+      db.MesAgentsList.removeAt(index);
+    });
+    db.updateDataBase();
+  }
 
   @override
   void initState() {
+    if (_myBox.get("LISTEDESAGENTS") == null) {
+      db.CreationDeLaListInitiale();
+    } else {
+      //cela exit deja
+      db.loadData();
+    }
     controlleur1 = TextEditingController();
     // TODO: implement initState
+
     super.initState();
   }
+
+  /* final _controllerduMatricul = TextEditingController();
+  final _controllerduNom = TextEditingController();
+  final _controllerduPrenoms = TextEditingController();
+  final _controllerdeLaTache = TextEditingController(); */
 
   @override
   void dispose() {
@@ -41,59 +72,100 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
             color: couleur,
           )
           ), */
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: monText(
-                      taille: 40,
-                      couleurText: Colors.orange,
-                      monTextGras: FontWeight.bold,
-                      leText: "GESTION DES AGENTS"),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  color: couleur,
-                  thickness: 2,
-                ),
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 50.0, left: 100),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          monDotteBoder(
-                              leTexBoder: "Nouvelle \n Agent",
-                              liconneDotteBorder: Icons.group_add,
-                              creationdeQuestionnaire: MonDialogAkouter())
-                        ],
-                      ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: monText(
+                    taille: 40,
+                    couleurText: Colors.orange,
+                    monTextGras: FontWeight.bold,
+                    leText: "GESTION DES AGENTS"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Divider(
+                color: couleur,
+                thickness: 2,
+              ),
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50.0, left: 100),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        monDotteBoder(
+                            leTexBoder: "Nouvelle \n Agent",
+                            liconneDotteBorder: Icons.group_add,
+                            creationdeQuestionnaire: MonDialogAkouter())
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                        Container(
-                          width: 200,
-                          height: 50,
-                          child: TextField(
-                            obscureText: false,
-                            controller: controlleur1,
-                            decoration: InputDecoration(
-                              hintText: "rechercher",
-                              prefixIcon: Icon(Icons.search),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 200,
+                            height: 50,
+                            child: TextField(
+                              obscureText: false,
+                              controller: controlleur1,
+                              decoration: InputDecoration(
+                                hintText: "rechercher",
+                                prefixIcon: Icon(Icons.search),
+                              ),
                             ),
                           ),
-                        ),
-                      ]),
-                    )
-                  ],
-                )
-              ],
-            ),
+                        ]),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    color: Colors.black,
+                    child: SingleChildScrollView(
+                      child: GridView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: db.MesAgentsList.length,
+                          gridDelegate:
+                              new SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  crossAxisSpacing: 10.0,
+                                  mainAxisSpacing: 10.0),
+                          itemBuilder: (BuildContext context, index) {
+                            return UnElementAjouter(
+                                leMtricul: db.MesAgentsList[index][0],
+                                LeNom: db.MesAgentsList[index][1],
+                                onChanged: (value) =>
+                                    changerLaCouleurdeLiconedeTache(
+                                        value, index),
+                                deleteFunction: (context) =>
+                                    suprimerUnAgents(index),
+                                lePrenom: db.MesAgentsList[index][2],
+                                etatDeLaTach: false,
+                                laTache: db.MesAgentsList[index][5]);
+                          }),
+                    ),
+                  ))
+
+              /* GridView.builder(
+                  itemCount: 3,
+                  gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (BuildContext context, int index) {
+                    child:
+                    UnElementAjouter;
+                  }) */
+            ],
           ),
         ),
       ),
@@ -126,10 +198,16 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return creationdeQuestionnaire;
+                      });
+
+                  /* Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => creationdeQuestionnaire));
+                          builder: (context) => creationdeQuestionnaire)); */
                 },
                 child: monIcone(
                     taileIcone: 90,
