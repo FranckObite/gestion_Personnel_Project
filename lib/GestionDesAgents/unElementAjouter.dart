@@ -36,6 +36,8 @@ class UnElementAjouter extends StatelessWidget {
           child: Column(
             children: [
               Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   monIcone(
                       taileIcone: 40,
@@ -43,7 +45,6 @@ class UnElementAjouter extends StatelessWidget {
                           ? Colors.red
                           : laCouleur2Licone,
                       iconEnQuestion: Icons.no_accounts),
-                  Spacer(),
                   Container(
                     width: 50,
                     height: 50,
@@ -55,7 +56,6 @@ class UnElementAjouter extends StatelessWidget {
                         couleurIcone: Color.fromARGB(255, 7, 75, 9),
                         iconEnQuestion: Icons.person),
                   ),
-                  Spacer(),
                   IconButton(
                       onPressed: () {},
                       icon: monIcone(

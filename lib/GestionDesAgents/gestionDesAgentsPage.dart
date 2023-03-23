@@ -157,7 +157,12 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                               lePhone: db.MesAgentsList[index][7],
                             );
                           }),
-                    ))
+                    )
+                    ),
+
+                    letextsonbon1(laction: "Quitter"),
+
+
 
                 /* GridView.builder(
                     itemCount: 3,
@@ -173,6 +178,24 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
         ),
       ),
     );
+  }
+
+  TextButton letextsonbon1({required String laction}) {
+    return TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          height: 40,
+          width: 150,
+          decoration: BoxDecoration(color: Colors.orange),
+          child: Center(
+              child: monText(
+                  taille: 20,
+                  couleurText: Colors.white,
+                  monTextGras: FontWeight.bold,
+                  leText: "$laction")),
+        ));
   }
 
   DottedBorder monDotteBoder(

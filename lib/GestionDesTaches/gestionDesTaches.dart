@@ -5,7 +5,7 @@ import 'package:flutter_application_/GestionDesAgents/unElementAjouter.dart';
 import 'package:flutter_application_/GestionDesTaches/uneTacheAjouter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'dialog.dart';
+import '../maBasedeDonnee/db.dart';
 
 class GestionDesTaches extends StatefulWidget {
   GestionDesTaches({super.key});
@@ -15,6 +15,8 @@ class GestionDesTaches extends StatefulWidget {
 }
 
 class _GestionDesTachesState extends State<GestionDesTaches> {
+  final _myBox = Hive.box('myBox');
+  MaBdAgents db = MaBdAgents();
   var couleur = Color.fromARGB(255, 12, 95, 15);
   late TextEditingController controlleur2LaRecherche;
 
@@ -64,13 +66,8 @@ class _GestionDesTachesState extends State<GestionDesTaches> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       monDotteBoder(
-                          leTexBoder: "Nouvelle \n Tâche",
-                          liconneDotteBorder: Icons.work,
-                          creationdeQuestionnaire: MonQuestionnaire(
-                              onCancel: () {
-                                Navigator.pop(context);
-                              },
-                              onSave: () {}))
+                          leTexBoder: "Modifier Tâche ",
+                          liconneDotteBorder: Icons.work)
                     ],
                   ),
                 ),
@@ -97,19 +94,89 @@ class _GestionDesTachesState extends State<GestionDesTaches> {
             SizedBox(
               height: 100,
             ),
-            Divider(
-              color: Colors.black,
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2,
+               // color: Colors.amber,
+                child: ListView.builder(
+                    itemCount: /* db.MesAgentsList.length, */ 8,
+                    itemBuilder: (context, index) {
+                      return UneTacheAjouter(
+                          leNomDeLagent: " GGGG " /* db.MesAgentsList[index][1] */,
+                          laTacheEnQuestion: "laTacheEnQuestion",
+                          numeroTacheAffectee: "f"
+                             /*  (db.MesAgentsList.indexOf(db.MesAgentsList[index]) +
+                                      1)
+                                  .toString() */
+                                  );
+                    }),
+              ),
             ),
+            SizedBox(
+              height: 30,
+            ),
+            letextsonbon1(laction: 'Quitter')
           ],
         ),
       )),
     );
   }
 
-  DottedBorder monDotteBoder(
-      {required String leTexBoder,
-      required IconData liconneDotteBorder,
-      required final Widget creationdeQuestionnaire}) {
+  /* ListView.builder(
+          itemCount: db.toDolist.length,
+          itemBuilder: (context, index) {
+            return SingleChildScrollView(
+              child: ToDoTile(
+                numeroTache:
+                    (db.toDolist.indexOf(db.toDolist[index]) + 1).toString(),
+                taskName: db.toDolist[index][0],
+                taskCompletd: db.toDolist[index][1],
+                Description: db.descriptionList[index][0],
+                onChanged: (value) => checkBoxChanged(value, index),
+                deleteFunction: (contex) => deleteTask(index),
+              ),
+            );
+          }, */
+
+  /* ToDoTile(
+                taskName: "Causerie Débat",
+                taskCompletd: true,
+                onChanged: (p0) {}),
+                ToDoTile(
+                taskName: " Live Coding",
+                taskCompletd: false,
+                onChanged: (p0) {}),
+                ToDoTile(
+                taskName: " Challenge algo",
+                taskCompletd: true,
+      /*           onChanged: (p0) {}) */
+        )
+        ); */
+
+  TextButton letextsonbon1({required String laction}) {
+    return TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          height: 40,
+          width: 150,
+          decoration: BoxDecoration(color: Colors.orange),
+          child: Center(
+              child: monText(
+                  taille: 20,
+                  couleurText: Colors.white,
+                  monTextGras: FontWeight.bold,
+                  leText: "$laction")),
+        ));
+  }
+
+  DottedBorder monDotteBoder({
+    required String leTexBoder,
+    required IconData liconneDotteBorder,
+  }) {
     return DottedBorder(
       borderType: BorderType.RRect,
 
@@ -123,29 +190,18 @@ class _GestionDesTachesState extends State<GestionDesTaches> {
           padding: const EdgeInsets.only(top: 8.0),
           child: Column(
             children: [
-              InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return creationdeQuestionnaire;
-                      });
-
-                  /* Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => creationdeQuestionnaire)); */
-                },
-                child: monIcone(
-                    taileIcone: 90,
-                    couleurIcone: couleur,
-                    iconEnQuestion: liconneDotteBorder),
+              monIcone(
+                  taileIcone: 90,
+                  couleurIcone: couleur,
+                  iconEnQuestion: liconneDotteBorder),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: monText(
+                    taille: 20,
+                    couleurText: Colors.orange,
+                    monTextGras: FontWeight.normal,
+                    leText: leTexBoder),
               ),
-              monText(
-                  taille: 20,
-                  couleurText: Colors.orange,
-                  monTextGras: FontWeight.normal,
-                  leText: leTexBoder),
             ],
           ),
         ),
