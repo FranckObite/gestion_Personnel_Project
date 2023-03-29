@@ -39,6 +39,8 @@ dependencies:
   dotted_border: ^2.0.0+3
   hive_flutter: ^1.1.0
   localstorage: ^4.0.1+2
+  #
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

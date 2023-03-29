@@ -6,6 +6,7 @@ import 'package:localstorage/localstorage.dart';
 
 import '../maBasedeDonnee/db.dart';
 import '../pages/pageAccueil.dart';
+import 'monDropBotton.dart';
 
 class MonDialogAkouter extends StatefulWidget {
   const MonDialogAkouter({super.key});
@@ -238,19 +239,19 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Column(
-                            children: [
-                              monText(
-                                  taille: 20,
-                                  couleurText: Colors.black,
-                                  monTextGras: FontWeight.bold,
-                                  leText: "Tâches :"),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              radios(),
-                            ],
+                          Row(
+                        children: [
+                          monText(
+                              taille: 20,
+                              couleurText: Colors.black,
+                              monTextGras: FontWeight.bold,
+                              leText: "Tâches :"),
+                          SizedBox(
+                            width: 20,
                           ),
+                          MonDropdownButton(),
+                        ],
+                      ),
                           SizedBox(
                             width: 430,
                           ),
@@ -281,19 +282,33 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
                         ],
                       ),
                       Spacer(),
-                      superRow(
-                          letextdelicon: "Etat-Civil",
-                          leDialogEnquestion: "Marier",
-                          leDialogEnquestion1: 'Divorcé',
-                          leDialogEnquestion2: 'Célibataire',
-                          leDialogEnquestion3: 'Veuf/Veuve'),
+                      Row(
+                        children: [
+                          monText(
+                              taille: 20,
+                              couleurText: Colors.black,
+                              monTextGras: FontWeight.bold,
+                              leText: "Etat-Civil :"),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          MonDropdownButton(),
+                        ],
+                      ),
                       Spacer(),
-                      superRow(
-                          letextdelicon: "Civilité",
-                          leDialogEnquestion: "Monsieur",
-                          leDialogEnquestion1: 'Autres',
-                          leDialogEnquestion2: 'Madame',
-                          leDialogEnquestion3: 'Mademoiselle'),
+                      Row(
+                        children: [
+                          monText(
+                              taille: 20,
+                              couleurText: Colors.black,
+                              monTextGras: FontWeight.bold,
+                              leText: "Civilité :"),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          MonDropdownButton(),
+                        ],
+                      ),
                       Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -447,7 +462,6 @@ class _MonDialogAkouterState extends State<MonDialogAkouter> {
       height: 40,
       decoration: BoxDecoration(color: Colors.white),
       child: TextField(
-        
         autocorrect: true,
         controller: mesControleurs,
         decoration: InputDecoration(

@@ -3,7 +3,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_application_/GestionDesAgents/unElementAjouter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../finalbd.dart';
 import '../maBasedeDonnee/db.dart';
+import '../mesFonction.dart';
 import 'ajouterUnAgent.dart';
 
 class GestionAgentsPage extends StatefulWidget {
@@ -14,6 +16,8 @@ class GestionAgentsPage extends StatefulWidget {
 }
 
 class _GestionAgentsPageState extends State<GestionAgentsPage> {
+  get _myBox => Hive.box('myBox');
+
   void changerLaCouleurdeLiconedeTache(bool? value, int index) {
     setState(() {
       db.MesAgentsList[index][13] = !db.MesAgentsList[index][13];
@@ -21,8 +25,6 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
     db.updateDataBase();
   }
 
-  final _myBox = Hive.box('myBox');
-  MaBdAgents db = MaBdAgents();
   late TextEditingController controlleur1;
 
   void suprimerUnAgents(int index) {
@@ -90,44 +92,6 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                   color: couleur,
                   thickness: 2,
                 ),
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 50.0, left: 100),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          monDotteBoder(
-                              leTexBoder: "Nouvelle \n Agent",
-                              liconneDotteBorder: Icons.group_add,
-                              creationdeQuestionnaire: MonDialogAkouter())
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: 200,
-                              height: 50,
-                              child: TextField(
-                                obscureText: false,
-                                controller: controlleur1,
-                                decoration: InputDecoration(
-                                  hintText: "rechercher",
-                                  prefixIcon: Icon(Icons.search),
-                                ),
-                              ),
-                            ),
-                          ]),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 100,
-                ),
                 Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Container(
@@ -157,12 +121,23 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
                               lePhone: db.MesAgentsList[index][7],
                             );
                           }),
-                    )
-                    ),
-
-                    letextsonbon1(laction: "Quitter"),
-
-
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(60.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      monDotteBoder(
+                          leTexBoder: "Nouvelle \n Agent",
+                          liconneDotteBorder: Icons.group_add,
+                          creationdeQuestionnaire: MonDialogAkouter()),
+                    ],
+                  ),
+                ),
+                /*  SizedBox(
+                  height: 100,
+                ), */
+                letextsonbon1(laction: "Quitter"),
 
                 /* GridView.builder(
                     itemCount: 3,
@@ -271,29 +246,6 @@ class _GestionAgentsPageState extends State<GestionAgentsPage> {
             monTextGras: FontWeight.normal,
             leText: notreText)
       ],
-    );
-  }
-
-  Text monText(
-      {required double taille,
-      required Color couleurText,
-      required FontWeight monTextGras,
-      required String leText}) {
-    return Text(
-      leText,
-      style: TextStyle(
-          fontSize: taille, color: couleurText, fontWeight: monTextGras),
-    );
-  }
-
-  Icon monIcone(
-      {required double taileIcone,
-      required Color couleurIcone,
-      required IconData iconEnQuestion}) {
-    return Icon(
-      iconEnQuestion,
-      size: taileIcone,
-      color: couleurIcone,
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_application_/GestionDesAgents/unElementAjouter.dart';
 import 'package:flutter_application_/GestionDesTaches/uneTacheAjouter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../finalbd.dart';
 import '../maBasedeDonnee/db.dart';
 
 class GestionDesTaches extends StatefulWidget {
@@ -15,8 +16,6 @@ class GestionDesTaches extends StatefulWidget {
 }
 
 class _GestionDesTachesState extends State<GestionDesTaches> {
-  final _myBox = Hive.box('myBox');
-  MaBdAgents db = MaBdAgents();
   var couleur = Color.fromARGB(255, 12, 95, 15);
   late TextEditingController controlleur2LaRecherche;
 
@@ -58,64 +57,41 @@ class _GestionDesTachesState extends State<GestionDesTaches> {
               color: couleur,
               thickness: 2,
             ),
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0, left: 100),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      monDotteBoder(
-                          leTexBoder: "Modifier Tâche ",
-                          liconneDotteBorder: Icons.work)
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Container(
-                      width: 200,
-                      height: 50,
-                      child: TextField(
-                        obscureText: false,
-                        controller: controlleur2LaRecherche,
-                        decoration: InputDecoration(
-                          hintText: "rechercher",
-                          prefixIcon: Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ]),
-                )
-              ],
-            ),
             SizedBox(
-              height: 100,
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 2,
-               // color: Colors.amber,
+                // color: Colors.amber,
                 child: ListView.builder(
                     itemCount: /* db.MesAgentsList.length, */ 8,
                     itemBuilder: (context, index) {
                       return UneTacheAjouter(
-                          leNomDeLagent: " GGGG " /* db.MesAgentsList[index][1] */,
+                          leNomDeLagent: db.MesAgentsList[index][1],
                           laTacheEnQuestion: "laTacheEnQuestion",
-                          numeroTacheAffectee: "f"
-                             /*  (db.MesAgentsList.indexOf(db.MesAgentsList[index]) +
-                                      1)
-                                  .toString() */
-                                  );
+                          numeroTacheAffectee: (db.MesAgentsList.indexOf(
+                                      db.MesAgentsList[index]) +
+                                  1)
+                              .toString());
                     }),
               ),
             ),
             SizedBox(
               height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(60.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  monDotteBoder(
+                      leTexBoder: "Modifier Tâche ",
+                      liconneDotteBorder: Icons.work),
+                ],
+              ),
             ),
             letextsonbon1(laction: 'Quitter')
           ],
@@ -123,37 +99,6 @@ class _GestionDesTachesState extends State<GestionDesTaches> {
       )),
     );
   }
-
-  /* ListView.builder(
-          itemCount: db.toDolist.length,
-          itemBuilder: (context, index) {
-            return SingleChildScrollView(
-              child: ToDoTile(
-                numeroTache:
-                    (db.toDolist.indexOf(db.toDolist[index]) + 1).toString(),
-                taskName: db.toDolist[index][0],
-                taskCompletd: db.toDolist[index][1],
-                Description: db.descriptionList[index][0],
-                onChanged: (value) => checkBoxChanged(value, index),
-                deleteFunction: (contex) => deleteTask(index),
-              ),
-            );
-          }, */
-
-  /* ToDoTile(
-                taskName: "Causerie Débat",
-                taskCompletd: true,
-                onChanged: (p0) {}),
-                ToDoTile(
-                taskName: " Live Coding",
-                taskCompletd: false,
-                onChanged: (p0) {}),
-                ToDoTile(
-                taskName: " Challenge algo",
-                taskCompletd: true,
-      /*           onChanged: (p0) {}) */
-        )
-        ); */
 
   TextButton letextsonbon1({required String laction}) {
     return TextButton(
@@ -190,10 +135,13 @@ class _GestionDesTachesState extends State<GestionDesTaches> {
           padding: const EdgeInsets.only(top: 8.0),
           child: Column(
             children: [
-              monIcone(
-                  taileIcone: 90,
-                  couleurIcone: couleur,
-                  iconEnQuestion: liconneDotteBorder),
+              InkWell(
+                onTap: () => leDialog(),
+                child: monIcone(
+                    taileIcone: 90,
+                    couleurIcone: couleur,
+                    iconEnQuestion: liconneDotteBorder),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: monText(
@@ -207,6 +155,46 @@ class _GestionDesTachesState extends State<GestionDesTaches> {
         ),
       ),
     );
+  }
+
+  Future<void> leDialog() async {
+    return await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            width: 200,
+            height: 200,
+            child: AlertDialog(
+              content: Column(
+                children: [
+                  TextField(
+                    controller: TextEditingController(),
+                  ),
+                  TextField(
+                    controller: TextEditingController(),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "Annuler",
+                    )),
+                TextButton(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text(
+                      "Modifer",
+                    ))
+              ],
+            ),
+          );
+        });
   }
 
   Column ourColun({required IconData notreIcone, required String notreText}) {

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_application_/GestionDesAgents/gestionDesAgentsPage.dart';
+import 'package:flutter_application_/controllers/home_controller.dart';
 import 'package:flutter_application_/maBasedeDonnee/dataBase.dart';
+import 'package:flutter_application_/monPayement/effectuerPayement.dart';
+import 'package:get/get.dart';
 
 import '../GestionDesTaches/gestionDesTaches.dart';
 import 'Page2Connexion.dart';
@@ -15,6 +18,10 @@ class MonAccueil extends StatefulWidget {
 
 class _MonAccueilState extends State<MonAccueil> {
   var couleur = Color.fromARGB(255, 12, 95, 15);
+
+  //
+  final HomeController controller = Get.put(HomeController());
+  //
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -72,15 +79,14 @@ class _MonAccueilState extends State<MonAccueil> {
                                       liconeDelaPage: Icons.payments,
                                       liconeDelaPage1: Icons.data_exploration,
                                       laFonction2Navigation:
-                                          GestionAgentsPage(),
+                                          effectuonsPayement(),
                                       laFonction2Navigation1:
                                           GestionAgentsPage()),
                                   const SizedBox(
                                     height: 15.0,
                                   ),
                                   ourContainer(
-                                      text2Description:
-                                          "Gestion Utilisateur",
+                                      text2Description: "Gestion Utilisateur",
                                       icon2Description: Icons.manage_accounts),
                                   const SizedBox(
                                     height: 15.0,
@@ -106,15 +112,24 @@ class _MonAccueilState extends State<MonAccueil> {
                           child: Padding(
                             padding: const EdgeInsets.only(top: 7.1),
                             child: Container(
-                              width: 980,
-                              height: MediaQuery.of(context).size.height,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                color: couleur,
-                              )),
-                              child: monImageCarousel(
-                                  size: MediaQuery.of(context).size.height),
-                            ),
+                                width: 980,
+                                height: MediaQuery.of(context).size.height,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                  color: couleur,
+                                )),
+                                child: IndexedStack(
+                                  index: 0,
+                                  children: [
+                                    monImageCarousel(
+                                        size:
+                                            MediaQuery.of(context).size.height),
+                                    GestionAgentsPage()
+                                  ],
+                                )
+                                // monImageCarousel(
+                                //     size: MediaQuery.of(context).size.height),
+                                ),
                           ),
                         ),
                       ],
@@ -290,6 +305,7 @@ class _MonAccueilState extends State<MonAccueil> {
                     MaterialPageRoute(
                         builder: (context) => laFonction2Navigation1));
                 ;
+                //controller.changePage(0);
               },
               child: monIcone(
                   taileIcone: 100,
